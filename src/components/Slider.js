@@ -7,12 +7,15 @@ export default function Slider(props) {
     <div className='slider-container'>
       <input
         type='range'
+        className='slider'
         min={min}
         max={max}
         value={value}
         onChange={handleChange}
-        className='slider'
       />
+      <p className='slider-text'>
+        Current value: <span className='slider-value'>{value}</span>
+      </p>
     </div>
   );
 }
