@@ -77,19 +77,24 @@ const DEFAULT_OPTIONS = [
 ];
 
 function App() {
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
+  // Options
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
+
+  // Selected Option
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
   const selectedOption = options[selectedOptionIndex];
 
   const handleSliderChange = ({ target }) => {
     setOptions((prevOptions) => {
       return prevOptions.map((option, index) => {
         if (index !== selectedOptionIndex) return option;
+        // if this is the selected option then change the value
         return { ...option, value: target.value };
       });
     });
   };
 
+  // Return the CSS styles
   const getImageStyle = () => {
     const filters = options.map((option) => {
       return `${option.property}(${option.value}${option.unit})`;
@@ -99,11 +104,16 @@ function App() {
   };
 
   return (
+    // CSS Grid
     <div className='container'>
+      {/* Background image */}
       <div className='main-image' style={getImageStyle()} />
+
+      {/* Custom Controls */}
       <div className='sidebar'>
         {options.map((option, index) => {
           return (
+            // Use handleclick to set the index
             <SidebarItem
               key={index}
               name={option.name}
@@ -113,6 +123,8 @@ function App() {
           );
         })}
       </div>
+
+      {/* Custom Slider */}
       <Slider
         min={selectedOption.range.min}
         max={selectedOption.range.max}
